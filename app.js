@@ -10,6 +10,10 @@ const cors = require('cors');
 require('dotenv').config();
 
 const auth = require('./routes/auth');
+const profile = require('./routes/profile');
+const experience = require('./routes/experience');
+const learn = require('./routes/learn');
+
 
 
 // MONGOOSE CONNECTION
@@ -68,6 +72,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTER MIDDLEWARE
 app.use('/auth', auth);
+app.use('/api', profile);
+app.use('/api', experience);
+app.use('/api', learn);
 
 
 // 404 
