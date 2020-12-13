@@ -6,9 +6,10 @@ const substanceSchema = new Schema({
   type: {type: String},
   description: {type: String},
   information: {type:String},
-  dose: {type: String},
+  dose1: {type: String},
+  dose2: {type: String},
+  dose3: {type: String},
   maxdose: {type: String},
-  mixWith: [{type: String}],
   nonMixWith: [{type: String}],
 });
 

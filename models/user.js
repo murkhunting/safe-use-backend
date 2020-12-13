@@ -7,7 +7,7 @@ const userSchema = new Schema({
   email: { type: String, match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, required: true, unique: true },
   phoneNumber: {type:Number},
   weight: { type: String},
-  age: { type: Number, default: 18 }, 
+  age: { type: Number, min: 18 }, 
   profilepic: { type: String, default: '/icons/default.png' },
   pathologies: [{type: String}],
   experiences:[{type:Schema.Types.ObjectId, ref: "Experince"}],

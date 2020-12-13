@@ -51,6 +51,13 @@ router.post("/", (req, res, next) => {
     });
 });
 
+
+//EXPERIENCE/START
+
+router.get("/start", (req, res, next) => {
+  
+})
+
 //EXPERIENCE/TRACK
 router.get("/track/:id", (req, res, next) => {
     const { id } = req.params;
