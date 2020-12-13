@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 const experienceSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' , default: null},
-  substances:[{type: Schema.Types.ObjectId, ref:'Substances'}],
-  duration: {type: Date},
+  substances:{type: Schema.Types.ObjectId, ref:'Substances'},
+  addedsubstances:[{type: Schema.Types.ObjectId, ref:'Substances'}],
+  duration: {type: String},
   date: {type: Date},
   emotionStatus:{type:String, enum: ["Much Better", "Better", "Same", "Worse", "Much worse"]},
   moodStatus: {type: String, enum: ["Calm", "Energized", "Fearful", "Tense", "Happy", "Sad"]},
