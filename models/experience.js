@@ -9,7 +9,8 @@ const experienceSchema = new Schema({
   emotionStatus:{type:String, enum: ["Much Better", "Better", "Same", "Worse", "Much worse"]},
   moodStatus: {type: String, enum: ["Calm", "Energized", "Fearful", "Tense", "Happy", "Sad"]},
   eatStatus: {type: String, enum: ["Empty", "Normal", "Full"]},
-  intention: {type: String, enum: ["Discover", "Grow", "Fun", "Transform", "Heal"]},
+  intention: {type: String, enum: ["Discover", "Grow", "Fun", "Transform", "Heal", "Concentration", "Relax"]},
+  userexperience: {type: String, enum: ["First Time", "Occasionally", "Often", "Habitually"]},
   notes: [{type: String}],
   voiceNotes: []
 }, {

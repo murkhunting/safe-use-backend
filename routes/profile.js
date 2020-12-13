@@ -11,8 +11,9 @@ const Substance = require("../models/substance");
 
 //PROFILE
 router.get("/", (req, res, next) => {
+  const {_id} = req.session.currentUser
 
-  User.findById(req.params.userId)
+  User.findById(_id)
     .then((user) => {
       
       res.status(200).json(user);
@@ -27,7 +28,7 @@ router.get("/edit", (req,res,next) =>{
     
 })
 
-router.post("/edit", (req, res, next) => {
+router.put("/edit", (req, res, next) => {
     let { email, username, imageUrl, user } = req.body;
   
     /* User.findById(req.params.userId)
@@ -56,7 +57,7 @@ router.post("/edit", (req, res, next) => {
 router.delete("/edit", (req,res,next) => {
     const {_id} = req.session.currentUser
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
         res.status(400).json({ message: "Specified id is not valid" });
         return;
       }

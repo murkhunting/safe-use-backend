@@ -16,7 +16,7 @@ const {
 
 // POST '/auth/signup'
 router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) => {
-  const { username, password, email, phoneNumber, weight, age, patholigies } = req.body;
+  const { username, password, email, phoneNumber, weight, age, pathologies } = req.body;
 
   try {																									 // projection
     const emailExists = await User.findOne({ username }, 'email');
@@ -27,7 +27,7 @@ router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) =>
     else {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashPass = bcrypt.hashSync(password, salt);
-      const newUser = await User.create({ username, password: hashPass, email, phoneNumber, weight, age, patholigies });
+      const newUser = await User.create({ username, password: hashPass, email, phoneNumber, weight, age, pathologies });
 
       newUser.password = "*";
       req.session.currentUser = newUser;

@@ -11,7 +11,29 @@ const Substance = require("../models/substance");
 
 //EXPERIENCE
 router.get("/", (req, res, next) => {
+  const {_id} = req.session.currentUser
+
+  User.findById(_id)
+    .then((user) => {
+      
+      res.status(200).json(user);
+    })
+    .catch((err) => {
+        res.status(500).json(err);
+    });
+});
+
+router.get("/", (req, res, next) => {
     
+  Substance.find 
+  .then((allSubstances) => {
+    res.status(200).json(allSubstances);
+  })
+  .catch((err) => {
+    res.status(500).json(err);
+  });
+  //como hacer un desplegable con todas las substancias y que al elegirla se meta la info en la array de substancias del model experiencias
+  //como hacer que si escojo una substáncia me saque la cantidad de dosis
 });
 
 router.post("/", (req, res, next) => {
@@ -27,19 +49,6 @@ router.post("/", (req, res, next) => {
         .status(500) // Internal Server Error
         .json(err);
     });
-    
-    
-    //como hacer un desplegable con todas las substancias y que al elegirla se meta la info en la array de substancias del model experiencias
-    //como hacer que si escojo una substáncia me saque la cantidad de dosis
-
-    Substance.find 
-    .then((allSubstances) => {
-      res.status(200).json(allSubstances);
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
-
 });
 
 //EXPERIENCE/TRACK
@@ -63,7 +72,19 @@ router.get("/track/:id", (req, res, next) => {
     });
 });
 
-router.post("/track/:id", (req, res, next) => {
+router.get("/track/:id", (req, res, next) => {
+    
+  Substance.find 
+  .then((allSubstances) => {
+    res.status(200).json(allSubstances);
+  })
+  .catch((err) => {
+    res.status(500).json(err);
+  });
+  //como hacer un desplegable con todas las substancias y que al elegirla se meta la info en la array de substancias del model experiencias
+});
+
+router.put("/track/:id", (req, res, next) => {
     const { id } = req.params;
     const { substance, duration, notes, voicenotes } = req.body;
   
