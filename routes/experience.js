@@ -10,22 +10,10 @@ const Substance = require("../models/substance");
 
 
 //EXPERIENCE
-router.get("/", (req, res, next) => {
-  const {_id} = req.session.currentUser
-
-  User.findById(_id)
-    .then((user) => {
-      
-      res.status(200).json(user);
-    })
-    .catch((err) => {
-        res.status(500).json(err);
-    });
-});
 
 router.get("/", (req, res, next) => {
     
-  Substance.find 
+  Substance.find()
   .then((allSubstances) => {
     res.status(200).json(allSubstances);
   })
@@ -55,8 +43,17 @@ router.post("/", (req, res, next) => {
 //EXPERIENCE/START
 
 router.get("/start", (req, res, next) => {
-  
-})
+  const {_id} = req.session.currentUser
+
+  User.findById(_id)
+    .then((user) => {
+      
+      res.status(200).json(user);
+    })
+    .catch((err) => {
+        res.status(500).json(err);
+    });
+});
 
 //EXPERIENCE/TRACK
 router.get("/track/:id", (req, res, next) => {

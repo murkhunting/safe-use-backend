@@ -31,7 +31,7 @@ router.get("/:id", (req, res, next) => {
         return;
       }
 
-    Substance.findbyid(id)
+    Substance.findById(id)
       .then((foundSubstance) => {
         res.status(200).json(foundSubstance);
       })

@@ -17,6 +17,7 @@ const {
 // POST '/auth/signup'
 router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) => {
   const { username, password, email, phoneNumber, weight, age, pathologies } = req.body;
+  console.log('req.body', req.body)
 
   try {																									 // projection
     const emailExists = await User.findOne({ username }, 'email');

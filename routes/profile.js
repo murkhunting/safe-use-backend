@@ -29,17 +29,10 @@ router.get("/edit", (req,res,next) =>{
 })
 
 router.put("/edit", (req, res, next) => {
-    let { email, username, imageUrl, user } = req.body;
+    let { username, password, email, phoneNumber, weight, age, pathologies } = req.body;
+
   
-    /* User.findById(req.params.userId)
-      .then((user) => { */
-        console.log("la imagen que subo", imageUrl);
-        console.log("la imagen actual:", user.imageUrl);
-        let defaultPic = imageUrl ? imageUrl : user.imageUrl;
-          console.log(req.body, "req.body", req.params);
-        //const updatedUser = { email, username, imageUrl: defaultPic };
-  
-        User.findByIdAndUpdate(req.params.userId, { email: email, username: username, imageUrl: defaultPic }, {
+        User.findByIdAndUpdate(req.params.userId, { username, password, email, phoneNumber, weight, age, pathologies}, {
           new: true,
         })
         

@@ -8,6 +8,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 require('dotenv').config();
+const app = express();
 
 const auth = require('./routes/auth');
 const profile = require('./routes/profile');
@@ -25,10 +26,6 @@ mongoose
   })
   .then( () => console.log(`Connected to database`))
   .catch( (err) => console.error(err));
-
-
-// EXPRESS SERVER INSTANCE
-const app = express();
 
 
 // CORS MIDDLEWARE SETUP
@@ -62,7 +59,7 @@ app.use(
   }),
 );
 
-// MIDDLEWARE
+// MIDDLEWARE SETUP
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -70,12 +67,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// ROUTER MIDDLEWARE
+// ROUTES MIDDLEWARE
 app.use('/auth', auth);
-app.use('/api', profile);
-app.use('/api', experience);
-app.use('/api', learn);
+app.use('/api/profile', profile);
+app.use('/api/experience', experience);
+app.use('/api/learn', learn);
 
+
+// ROUTE FOR SERVING REACT APP (index.html)
+app.use((req, res, next) => {
+  // If no previous routes match the request, send back the React app.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 // 404 
 // catch 404 and forward to error handler

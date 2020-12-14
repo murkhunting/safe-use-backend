@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Substance = require("./../models/substance");
-
+require ("dotenv").config()
 const substances = require('./substances-mock-data');
 
 mongoose
@@ -20,8 +20,7 @@ mongoose
         const pr = Substance.create(substances);
         return pr;
     })
-    .then ((createdSubstances)=>{
-        console.log(`Created ${createdSubstances.length} substances`)
+    .then (()=>{
         mongoose.connection.close();
     })
 
