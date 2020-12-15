@@ -32,7 +32,11 @@ mongoose
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.PUBLIC_DOMAIN],
+    origin: [
+      process.env.PUBLIC_DOMAIN,
+      "http://safe-use.herokuapp.com/",
+      "https://safe-use.herokuapp.com/"    
+    ],
   }),
 );
 // app.use((req, res, next) => {
