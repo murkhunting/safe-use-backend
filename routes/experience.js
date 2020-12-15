@@ -27,8 +27,10 @@ router.get("/", (req, res, next) => {
 router.post("/", (req, res, next) => {
     const { substance, emotionStatus, moodStatus, eatStatus, intention } = req.body;
     const user = req.session.currentUser;
+    const addedSubstances = [];
+    const duration = ""
 
-  Experience.create({ user, substance, emotionStatus, moodStatus, eatStatus, intention, date, duration, })
+  Experience.create({ user, substance, emotionStatus, moodStatus, eatStatus, intention, userexperience, duration, addedSubstances, notes })
     .then((createdExperience) => {
       res.status(201).json(createdExperience);
     })
@@ -42,10 +44,18 @@ router.post("/", (req, res, next) => {
 
 //EXPERIENCE/START
 
-router.get("/start", (req, res, next) => {
-  const {_id} = req.session.currentUser
+router.get("/start/:id", (req, res, next) => {
+  const { id } = req.params;
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      res
+        .status(400) //  Bad Request
+        .json({ message: "Specified id is not valid" });
+      return;
+    }
 
-  User.findById(_id)
+  Experience.findById(_id)
+    .populate("substance")
     .then((user) => {
       
       res.status(200).json(user);
@@ -67,7 +77,7 @@ router.get("/track/:id", (req, res, next) => {
     }
   
     Experience.findById(id)
-      .populate("substances")
+      .populate("substance")
       .then((foundExperience) => {
         res.status(200).json(foundExperience); // OK
       })
@@ -76,21 +86,10 @@ router.get("/track/:id", (req, res, next) => {
     });
 });
 
-router.get("/track/:id", (req, res, next) => {
-    
-  Substance.find 
-  .then((allSubstances) => {
-    res.status(200).json(allSubstances);
-  })
-  .catch((err) => {
-    res.status(500).json(err);
-  });
-  //como hacer un desplegable con todas las substancias y que al elegirla se meta la info en la array de substancias del model experiencias
-});
 
 router.put("/track/:id", (req, res, next) => {
     const { id } = req.params;
-    const { substance, duration, notes, voicenotes } = req.body;
+    const { addedSubstances, duration, notes, voicenotes } = req.body;
   
     if (!mongoose.Types.ObjectId.isValid(id)) {
       res.status(400).json({ message: "Specified id is not valid" });
@@ -98,7 +97,7 @@ router.put("/track/:id", (req, res, next) => {
     }
   //como añadir una substancia más ya que es una array? pero significa añadir un objeto más 
   //como añadir una nota y que se publique directamente
-    Experience.findByIdAndUpdate(id, { substance, duration, notes, voicenotes })
+    Experience.findByIdAndUpdate(id, { addedSubstances, duration, notes, voicenotes })
       .then(() => {
         res.status(200).send();
       })
