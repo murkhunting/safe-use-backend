@@ -144,6 +144,15 @@ const substances = [
         mixWith: " ",
         nonMixWith: " ",    
     },{
+        name: "Ketamine",
+        type: "Psychedelics",
+        description: " ",
+        information: " ",
+        dose: " ",
+        maxdose: " ",
+        mixWith: " ",
+        nonMixWith: " ",    
+    },{
         name: "Mescaline",
         type: "Psychedelics",
         description: " ",
