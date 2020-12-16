@@ -9,8 +9,8 @@ const userSchema = new Schema({
   weight: { type: String, required: true},
   age: { type: Number, min: 18, required: true }, 
   profilepic: { type: String, default: '/icons/default.png' },
-  pathologies: {type: String},
-  experiences:[{type:Schema.Types.ObjectId, ref: "Experince"}],
+  pathologies: {type: String, enum: ["None"]},
+  experiences:[{type:Schema.Types.ObjectId, ref: "Experince"}],//typo en Experience
 }, {
   timestamps: {
     createdAt: 'created_at', 

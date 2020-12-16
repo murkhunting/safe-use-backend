@@ -7,9 +7,29 @@ const mongoose = require("mongoose");
 const User = require("../models/user");
 const Experience = require("../models/experience");
 const Substance = require("../models/substance");
+const { isLoggedIn } = require("../helpers/middlewares");
 
 
 //EXPERIENCE
+
+router.post("/", isLoggedIn, (req, res, next) => {
+    const { substance, emotionStatus, moodStatus, eatStatus, intention, userexperience } = req.body;
+    console.log('req.body', req.body)
+    const user = req.session.currentUser._id;
+    // const addedSubstances = [];
+    // const duration = ""
+    // const notes = [];
+
+  Experience.create({ user, substance, emotionStatus, moodStatus, eatStatus, intention, userexperience })
+    .then((createdExperience) => {
+      res.status(201).json(createdExperience);
+    })
+    .catch((err) => {
+      res
+        .status(500) // Internal Server Error
+        .json(err);
+    });
+});
 
 router.get("/", (req, res, next) => {
     
@@ -24,22 +44,6 @@ router.get("/", (req, res, next) => {
   //como hacer que si escojo una substáncia me saque la cantidad de dosis
 });
 
-router.post("/", (req, res, next) => {
-    const { substance, emotionStatus, moodStatus, eatStatus, intention } = req.body;
-    const user = req.session.currentUser;
-    const addedSubstances = [];
-    const duration = ""
-
-  Experience.create({ user, substance, emotionStatus, moodStatus, eatStatus, intention, userexperience, duration, addedSubstances, notes })
-    .then((createdExperience) => {
-      res.status(201).json(createdExperience);
-    })
-    .catch((err) => {
-      res
-        .status(500) // Internal Server Error
-        .json(err);
-    });
-});
 
 
 //EXPERIENCE/START
@@ -54,11 +58,11 @@ router.get("/start/:id", (req, res, next) => {
       return;
     }
 
-  Experience.findById(_id)
+  Experience.findById(id)
     .populate("substance")
-    .then((user) => {
+    .then((experience) => {
       
-      res.status(200).json(user);
+      res.status(200).json(experience);
     })
     .catch((err) => {
         res.status(500).json(err);
@@ -95,8 +99,7 @@ router.put("/track/:id", (req, res, next) => {
       res.status(400).json({ message: "Specified id is not valid" });
       return;
     }
-  //como añadir una substancia más ya que es una array? pero significa añadir un objeto más 
-  //como añadir una nota y que se publique directamente
+  
     Experience.findByIdAndUpdate(id, { addedSubstances, duration, notes, voicenotes })
       .then(() => {
         res.status(200).send();
