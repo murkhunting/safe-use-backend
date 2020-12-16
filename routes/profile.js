@@ -28,11 +28,12 @@ router.get("/edit", (req,res,next) =>{
     
 })
 
-router.put("/edit", (req, res, next) => {
-    let { username, password, email, phoneNumber, weight, age, pathologies } = req.body;
+router.post("/edit", (req, res, next) => {
+    let { username, email, phoneNumber, weight, age, pathologies } = req.body;
+    const {_id} = req.session.currentUser
 
   
-        User.findByIdAndUpdate(req.params.userId, { username, password, email, phoneNumber, weight, age, pathologies}, {
+        User.findByIdAndUpdate(_id, { username, email, phoneNumber, weight, age, pathologies}, {
           new: true,
         })
         

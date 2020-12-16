@@ -81,6 +81,7 @@ router.get("/track/:id", (req, res, next) => {
     }
   
     Experience.findById(id)
+      .populate("user")
       .populate("substance")
       .then((foundExperience) => {
         res.status(200).json(foundExperience); // OK
