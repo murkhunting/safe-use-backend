@@ -6,10 +6,11 @@ const substanceSchema = new Schema({
   type: {type: String},
   description: {type: String},
   information: {type:String},
-  dose1: {type: String},
-  dose2: {type: String},
-  dose3: {type: String},
+  dose: {type: String},
+  desiredefect:{type: String},
+  badefect:{type: String},
   maxdose: {type: String},
+  img:{type:String},
   nonMixWith: [{type: String}],
 });
 

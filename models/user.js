@@ -9,7 +9,7 @@ const userSchema = new Schema({
   weight: { type: String, required: true},
   age: { type: Number, min: 18, required: true }, 
   profilepic: { type: String, default: '/icons/default.png' },
-  pathologies: {type: String, enum: ["None"]},
+  pathologies: {type: String, enum: ["None"], required: true},
   experiences:[{type:Schema.Types.ObjectId, ref: "Experince"}],//typo en Experience
 }, {
   timestamps: {
