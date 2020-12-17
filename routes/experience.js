@@ -155,7 +155,7 @@ router.delete("/:id", (req, res, next)=>{
       return;
     }
   
-    Project.findByIdAndRemove(id)
+    Experience.findByIdAndRemove(id)
       .then(() => {
         res
           .status(202) //  Accepted
